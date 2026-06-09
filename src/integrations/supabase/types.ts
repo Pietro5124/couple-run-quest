@@ -14,7 +14,103 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      photos: {
+        Row: {
+          caption: string | null
+          created_at: string
+          id: string
+          profile_slug: string
+          url: string
+          week_start: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          profile_slug: string
+          url: string
+          week_start: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          id?: string
+          profile_slug?: string
+          url?: string
+          week_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "photos_profile_slug_fkey"
+            columns: ["profile_slug"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          color: string
+          created_at: string
+          emoji: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          color: string
+          created_at?: string
+          emoji: string
+          name: string
+          slug: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          emoji?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
+      runs: {
+        Row: {
+          created_at: string
+          date: string
+          distance_km: number
+          duration_min: number | null
+          id: string
+          notes: string | null
+          profile_slug: string
+        }
+        Insert: {
+          created_at?: string
+          date?: string
+          distance_km: number
+          duration_min?: number | null
+          id?: string
+          notes?: string | null
+          profile_slug: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          distance_km?: number
+          duration_min?: number | null
+          id?: string
+          notes?: string | null
+          profile_slug?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "runs_profile_slug_fkey"
+            columns: ["profile_slug"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["slug"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
