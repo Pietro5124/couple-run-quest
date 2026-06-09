@@ -105,11 +105,4 @@
   }
 }
 
-@utility text-pietro { color: var(--color-pietro); }
-@utility text-ana { color: var(--color-ana); }
-@utility bg-pietro { background-color: var(--color-pietro); color: var(--color-pietro-foreground); }
-@utility bg-ana { background-color: var(--color-ana); color: var(--color-ana-foreground); }
-@utility ring-pietro { --tw-ring-color: var(--color-pietro); }
-@utility ring-ana { --tw-ring-color: var(--color-ana); }
-@utility border-pietro { border-color: var(--color-pietro); }
-@utility border-ana { border-color: var(--color-ana); }
+/* Tailwind v4 auto-generates bg-pietro, text-pietro, border-pietro, etc. from --color-pietro */
