@@ -1,29 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Dashboard } from "@/components/fitness/Dashboard";
+import { Toaster } from "@/components/ui/sonner";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "RunDuo — Pietro & Ana Beatriz" },
+      { name: "description", content: "Acompanhe a evolução fitness do casal: corridas, XP, ranking e conquistas." },
+      { property: "og:title", content: "RunDuo — Pietro & Ana Beatriz" },
+      { property: "og:description", content: "Corridas, XP, conquistas e calendário do casal." },
     ],
   }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Dashboard />
+      <Toaster position="top-center" richColors />
+    </>
   );
 }
