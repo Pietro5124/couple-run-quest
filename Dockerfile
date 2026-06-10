@@ -1,34 +1,30 @@
 # Build stage
-FROM oven/bun:latest AS builder
+FROM oven/bun:1 AS builder
 
 WORKDIR /app
 
-# Copy dependency files
-COPY package.json bun.lock bunfig.toml ./
-COPY tsconfig.json vite.config.ts ./
-
-# Install dependencies
+# Install all dependencies (including dev) for build
+COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile
 
-# Copy source code
+# Copy source and build with Node server preset (Nitro)
 COPY . .
-
-# Build the app
+ENV NITRO_PRESET=node-server
 RUN bun run build
 
 # Production stage
-FROM oven/bun:slim AS runner
+FROM oven/bun:1-slim AS runner
 
 WORKDIR /app
 
-# Copy built output and necessary files
-COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/package.json ./
-
-# Expose the port (Nitro default is 3000)
+ENV NODE_ENV=production
+ENV HOST=0.0.0.0
 ENV PORT=3000
-ENV NITRO_PRESET=node-server
+
+# Copy built output
+COPY --from=builder /app/.output ./.output
+
 EXPOSE 3000
 
-# Start the server
-CMD ["bun", "run", "dist/server/index.mjs"]
+# Nitro node-server entry
+CMD ["bun", "run", ".output/server/index.mjs"]
